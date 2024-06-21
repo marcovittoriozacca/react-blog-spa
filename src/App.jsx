@@ -4,6 +4,7 @@ import Posts from "./pages/Posts"
 import SinglePost from "./pages/SinglePost"
 import NotFound from "./pages/NotFound"
 import MainLayout from "./layouts/MainLayout"
+import PostsByTag from "./pages/PostsByTag"
 
 function App() {
 
@@ -21,6 +22,8 @@ function App() {
           <Route path="posts">
             {/* main page for the posts route */}
             <Route index element={<Posts/>}/>
+
+            <Route path="tag/:id" element={<PostsByTag/>}/>
 
             {/* single post route with slug param */}
             <Route path=":slug" element={<SinglePost/>}/>
