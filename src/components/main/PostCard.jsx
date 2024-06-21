@@ -20,9 +20,8 @@ export default function({title, slug, content, image, published, tags, category}
                         <span key={`post-tag-${tag.id}`}>{tag.name}</span>
                     ))}
                 </div>
-                <span>
-                    {category.name}
-                </span>
+                {category !== null && <span>{category}</span>}
+                
             </div>
         </li>
     )
