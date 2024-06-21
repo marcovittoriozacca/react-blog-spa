@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { handleFallbackImage, getPostImage } from '../../../utils.js';
 
 export default function({title, slug, content, image, published, tags, category}){
@@ -5,7 +6,10 @@ export default function({title, slug, content, image, published, tags, category}
     return(
         <li>
             <div>
-                <h2>{title}</h2>
+                <Link to={`./${slug}`}>
+                    {title}
+                </Link>
+                
                 <figure>
                     <img src={image? getPostImage(image) : ""} alt={slug} onError={handleFallbackImage}/>
                 </figure>
