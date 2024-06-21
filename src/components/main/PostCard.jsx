@@ -1,17 +1,13 @@
-import fallbackImg from '/fallback-image.png'
+import { handleFallbackImage, getPostImage } from '../../../utils.js';
 
-export default function({id, title, slug, content, image, published, tags, category}){
+export default function({title, slug, content, image, published, tags, category}){
 
-    const baseUrl = import.meta.env.VITE_SERVER_BASE_URL;
-    const addImageFallback = (event) => {
-        event.currentTarget.src = fallbackImg;
-    };
     return(
         <li>
             <div>
                 <h2>{title}</h2>
                 <figure>
-                    <img src={image? `${baseUrl}${image}` : ""} alt={slug} onError={addImageFallback}/>
+                    <img src={image? getPostImage(image) : ""} alt={slug} onError={handleFallbackImage}/>
                 </figure>
                 <p>{content}</p>
                 <span>{published === true? "Published" : "Not Published Yet"}</span>

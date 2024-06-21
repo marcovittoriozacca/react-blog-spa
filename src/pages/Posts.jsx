@@ -12,7 +12,6 @@ export default function(){
         try{
             const response = await axios.get(`${postsUrl}?page=1&limit=10`);
             setPostsList(response.data.postsList);
-            console.log(response.data.postsList[0])
         }catch(err){
             console.error(err);
         }
