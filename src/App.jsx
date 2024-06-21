@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage"
 import Posts from "./pages/Posts"
 import SinglePost from "./pages/SinglePost"
 import NotFound from "./pages/NotFound"
+import MainLayout from "./layouts/MainLayout"
 
 function App() {
 
@@ -10,23 +11,24 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
+        {/* general layout applied to all of our routes */}
+        <Route path="/" element={<MainLayout/>}>
 
-        {/* home page route */}
-        <Route path="/" element={<HomePage/>}/>
+          {/* main route for the "/" url with component HomePage */}
+          <Route index element={<HomePage/>}/>
 
-        {/* Not Found Route */}
-        <Route path="/*" element={<NotFound/>}/>
+          {/* sub routes for posts */}
+          <Route path="posts">
+            {/* main page for the posts route */}
+            <Route index element={<Posts/>}/>
 
-        {/* complete posts list route */}
-        <Route path="/posts">
-          <Route index element={<Posts/>}/>
-          {/* single post route with slug param */}
-
-          <Route path=":slug">
-              <Route index element={<SinglePost/>}/>    
+            {/* single post route with slug param */}
+            <Route path=":slug" element={<SinglePost/>}/>
           </Route>
-        </Route>
 
+          {/* Not found component to handle the error 404 */}
+          <Route path="*" element={<NotFound/>}/>
+        </Route>
       </Routes>    
     </BrowserRouter>
     </>
