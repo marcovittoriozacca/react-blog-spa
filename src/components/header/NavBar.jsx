@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom"
+import "./NavBar.css";
 
 const links = [
     {
@@ -12,11 +13,11 @@ const links = [
 ]
 export default function(){
     return(<>
-        <header>
+        <header className=" bg-neutral-200">
             <nav className="p-4">
                 <ul className="flex items-center gap-x-5">
                     {links.map((link,index) => (
-                        <NavLink to={link.url}>{link.name}</NavLink>
+                        <NavLink to={link.url} key={`navLink-${index}`} className={"capitalize"}>{link.name}</NavLink>
                     ))}
                 </ul>
             </nav>
