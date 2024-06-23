@@ -5,6 +5,7 @@ import SinglePost from "./pages/SinglePost"
 import NotFound from "./pages/NotFound"
 import MainLayout from "./layouts/MainLayout"
 import PostsByTag from "./pages/PostsByTag"
+import Create from "./components/main/Create"
 
 function App() {
 
@@ -18,6 +19,8 @@ function App() {
           {/* main route for the "/" url with component HomePage */}
           <Route index element={<HomePage/>}/>
 
+          <Route path={"create-post"} element={<Create/>} />
+          
           {/* sub routes for posts */}
           <Route path="posts">
             {/* main page for the posts route */}
