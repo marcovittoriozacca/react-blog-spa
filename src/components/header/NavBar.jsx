@@ -14,7 +14,7 @@ const links = [
 export default function(){
     return(<>
         <header className=" bg-neutral-200">
-            <nav className="p-4">
+            <nav className="container mx-auto py-4">
                 <ul className="flex items-center gap-x-5">
                     {links.map((link,index) => (
                         <NavLink to={link.url} key={`navLink-${index}`} className={"capitalize"}>{link.name}</NavLink>

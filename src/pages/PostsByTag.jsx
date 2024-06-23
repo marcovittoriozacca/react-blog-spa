@@ -23,7 +23,7 @@ export default function(){
 
     useEffect(() => {
         getPosts();
-    },[])
+    },[id])
 
     return(<>
     <ul>

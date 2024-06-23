@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 export default function(){
     return(<>
         <NavBar/>
-        <main>
+        <main className="py-5">
             <Outlet/>
         </main>
         <Footer/>

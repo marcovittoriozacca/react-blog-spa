@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+.published{
+    @apply text-green-600 px-3 py-2 bg-lime-200 rounded-md 
+}
+
+.notPublishedYet{
+    @apply text-red-600 px-3 py-2 bg-rose-300 rounded-md 
+}

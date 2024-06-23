@@ -41,7 +41,7 @@ export default function(){
     <Navigation onNext={handleNextPage} onPrev={handlePrevPage}>
         {currPage}
     </Navigation>
-        <section>
+        <section className="container mx-auto">
             <ul>
                 {postsList.length === 0 && <h1>No Posts available yet...</h1>}
                 {postsList === null?
