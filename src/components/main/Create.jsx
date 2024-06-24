@@ -17,6 +17,7 @@ export default function(){
     }
     
     const [formData, setFormData] = useState(data);
+    const [errors, setErrors] = useState([]);
     
     const [options, setOptions] = useState([]);
 
@@ -27,9 +28,6 @@ export default function(){
     
         const response = await axios.get(`${categoriesUrl}`);
         const categories = response.data.categories
-        // categories.map( cat => {
-        //     setOptions(curr => ([...curr, {value: cat.id, label: cat.name}]));
-        // } )
         setOptions(categories);
     }
 
@@ -50,13 +48,17 @@ export default function(){
         const postsUrl = import.meta.env.VITE_SERVER_POSTS;
         e.preventDefault();
 
-        const response = await axios.post(`${postsUrl}`, formData, {
-            headers:{
-                "Content-Type": "multipart/form-data",
-            }
-        });
-        const slug = (response.data.post_created.slug);
-        return navigate(`/posts/${slug}`);
+        try{
+            const response = await axios.post(`${postsUrl}`, formData, {
+                headers:{
+                    "Content-Type": "multipart/form-data",
+                }
+            });
+            const slug = (response.data.post_created.slug);
+            return navigate(`/posts/${slug}`);
+        }catch(err){
+            setErrors(err.response.data.errors);
+        }
     };
 
     const handleFormDataChange = (e) => {
@@ -73,6 +75,20 @@ export default function(){
         }
     }
 
+    const handleErrorsMsgs = (field) => {
+        const errFound = errors.filter((e,i) => e.path === field);
+        
+        if(errFound.length > 0){
+            const { msg } = errFound[0];
+            return (<span className="text-red-500 italic">{msg}</span>);
+        }
+        return null;
+    }
+    const handleErrorStyle = (field) => {
+        const errFound = errors.filter((e,i) => e.path === field);
+        return errFound.length > 0? true : false;
+    }
+
     const handleMultiCheckbox = (id) => {
         setFormData(curr => ({...curr, tags: (curr.tags.includes(id)? curr.tags.filter(t => t !== id) : [...curr.tags, id] )}))
     }
@@ -84,17 +100,18 @@ return(<>
                 <div className="mb-3">
                     <label className="flex flex-col gap-y-1">
                         Title
-                        <input placeholder="Title..." type="text" id="title" name="title" value={formData.title} onChange={handleFormDataChange}/>
+                        <input className={handleErrorStyle("title")? "invalidText" : "normalInputState"} placeholder="Title..." type="text" id="title" name="title" value={formData.title} onChange={handleFormDataChange}/>
+                        {handleErrorsMsgs("title")}
                     </label>
                 </div>
                 
                 <div className="mb-3">
                     <label className="flex flex-col gap-y-1">
                         Content
-                        <textarea placeholder="Content..." name="content" id="content" rows="5" value={formData.content} onChange={(e) => setFormData(curr => ({...curr, content: e.target.value}))}></textarea>
+                        <textarea className={handleErrorStyle("content")? "invalidText" : "normalInputState"} placeholder="Content..." name="content" id="content" rows="5" value={formData.content} onChange={(e) => setFormData(curr => ({...curr, content: e.target.value}))}></textarea>
+                        {handleErrorsMsgs("content")}
                     </label>
                 </div>
-
                 <div className="mb-3">
                     <label className="flex flex-col gap-y-1">
                         Image
